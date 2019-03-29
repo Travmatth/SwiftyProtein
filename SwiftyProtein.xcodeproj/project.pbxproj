@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5209245224E3C8D00CDBFD2 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D5209244224E3C8D00CDBFD2 /* ligands.txt */; };
 		D5D49A47224E256900166051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A46224E256900166051 /* AppDelegate.swift */; };
-		D5D49A49224E256900166051 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A48224E256900166051 /* ViewController.swift */; };
 		D5D49A4C224E256900166051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4A224E256900166051 /* Main.storyboard */; };
 		D5D49A4E224E256B00166051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4D224E256B00166051 /* Assets.xcassets */; };
 		D5D49A51224E256B00166051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4F224E256B00166051 /* LaunchScreen.storyboard */; };
 		D5D49A5C224E256B00166051 /* SwiftyProteinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A5B224E256B00166051 /* SwiftyProteinTests.swift */; };
 		D5D49A67224E256B00166051 /* SwiftyProteinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A66224E256B00166051 /* SwiftyProteinUITests.swift */; };
+		D5D49A75224E258A00166051 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A74224E258A00166051 /* LoginViewController.swift */; };
+		D5D49A77224E25AA00166051 /* ProteinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A76224E25AA00166051 /* ProteinListViewController.swift */; };
+		D5D49A79224E25BB00166051 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A78224E25BB00166051 /* ProteinViewController.swift */; };
+		D5D49A7B224E271C00166051 /* ProteinList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A7A224E271C00166051 /* ProteinList.storyboard */; };
+		D5D49A7D224E272A00166051 /* Protein.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A7C224E272A00166051 /* Protein.storyboard */; };
+		D5D49A81224E306C00166051 /* IBDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A80224E306C00166051 /* IBDesign.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5209244224E3C8D00CDBFD2 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
 		D5D49A43224E256900166051 /* SwiftyProtein.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyProtein.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D49A46224E256900166051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D5D49A48224E256900166051 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D5D49A4B224E256900166051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5D49A4D224E256B00166051 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5D49A50224E256B00166051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +53,12 @@
 		D5D49A62224E256B00166051 /* SwiftyProteinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyProteinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D49A66224E256B00166051 /* SwiftyProteinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyProteinUITests.swift; sourceTree = "<group>"; };
 		D5D49A68224E256B00166051 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5D49A74224E258A00166051 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D5D49A76224E25AA00166051 /* ProteinListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinListViewController.swift; sourceTree = "<group>"; };
+		D5D49A78224E25BB00166051 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
+		D5D49A7A224E271C00166051 /* ProteinList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProteinList.storyboard; sourceTree = "<group>"; };
+		D5D49A7C224E272A00166051 /* Protein.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Protein.storyboard; sourceTree = "<group>"; };
+		D5D49A80224E306C00166051 /* IBDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBDesign.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +110,17 @@
 			isa = PBXGroup;
 			children = (
 				D5D49A46224E256900166051 /* AppDelegate.swift */,
-				D5D49A48224E256900166051 /* ViewController.swift */,
+				D5209244224E3C8D00CDBFD2 /* ligands.txt */,
+				D5D49A7A224E271C00166051 /* ProteinList.storyboard */,
+				D5D49A7C224E272A00166051 /* Protein.storyboard */,
 				D5D49A4A224E256900166051 /* Main.storyboard */,
 				D5D49A4D224E256B00166051 /* Assets.xcassets */,
 				D5D49A4F224E256B00166051 /* LaunchScreen.storyboard */,
 				D5D49A52224E256B00166051 /* Info.plist */,
+				D5D49A74224E258A00166051 /* LoginViewController.swift */,
+				D5D49A76224E25AA00166051 /* ProteinListViewController.swift */,
+				D5D49A78224E25BB00166051 /* ProteinViewController.swift */,
+				D5D49A80224E306C00166051 /* IBDesign.swift */,
 			);
 			path = SwiftyProtein;
 			sourceTree = "<group>";
@@ -229,8 +247,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D49A7D224E272A00166051 /* Protein.storyboard in Resources */,
+				D5209245224E3C8D00CDBFD2 /* ligands.txt in Resources */,
 				D5D49A51224E256B00166051 /* LaunchScreen.storyboard in Resources */,
 				D5D49A4E224E256B00166051 /* Assets.xcassets in Resources */,
+				D5D49A7B224E271C00166051 /* ProteinList.storyboard in Resources */,
 				D5D49A4C224E256900166051 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,7 +277,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5D49A49224E256900166051 /* ViewController.swift in Sources */,
+				D5D49A75224E258A00166051 /* LoginViewController.swift in Sources */,
+				D5D49A81224E306C00166051 /* IBDesign.swift in Sources */,
+				D5D49A79224E25BB00166051 /* ProteinViewController.swift in Sources */,
+				D5D49A77224E25AA00166051 /* ProteinListViewController.swift in Sources */,
 				D5D49A47224E256900166051 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProtein/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,6 +478,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProtein/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
