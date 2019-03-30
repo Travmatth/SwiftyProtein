@@ -18,6 +18,10 @@ class LoginViewController: UIViewController {
 		initUI()
     }
 
+	override func viewDidLayoutSubviews() {
+		self.navigationController?.isNavigationBarHidden = true;
+	}
+
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
 	}
@@ -33,10 +37,15 @@ class LoginViewController: UIViewController {
 		authenticateUser()
 	}
 
+	@IBAction func login(_ sender: UIButton) {
+		self.toProteinList()
+	}
+
 	func toProteinList() {
 		let st = UIStoryboard(name: "ProteinList", bundle: nil)
 		guard let vc = st.instantiateViewController(withIdentifier: "ProteinList") as? ProteinListViewController else { return }
-		self.present(vc, animated: true, completion: nil)
+		vc.title = "Proteins"
+		self.navigationController?.pushViewController(vc, animated: true)
 	}
     
 	func authenticateUser() {
@@ -46,14 +55,15 @@ class LoginViewController: UIViewController {
 			[unowned self] success, authenticationError in
 
 			DispatchQueue.main.async {
-				if success {
-					let generator = UIImpactFeedbackGenerator(style: .medium)
-					generator.impactOccurred()
-					self.toProteinList()
+				if !success {
+					let ac = UIAlertController(title: "Authentication failed", message: "Sorry!", preferredStyle: .alert)
+					ac.addAction(UIAlertAction(title: "OK", style: .default))
+					self.present(ac, animated: true)
+					return
 				}
-				let ac = UIAlertController(title: "Authentication failed", message: "Sorry!", preferredStyle: .alert)
-				ac.addAction(UIAlertAction(title: "OK", style: .default))
-				self.present(ac, animated: true)
+				let generator = UIImpactFeedbackGenerator(style: .medium)
+				generator.impactOccurred()
+				self.toProteinList()
 			}
 		}
 	}

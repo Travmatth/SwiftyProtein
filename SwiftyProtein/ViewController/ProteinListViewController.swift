@@ -23,6 +23,16 @@ class ProteinListViewController: UIViewController {
 		initTableView()
     }
 
+	override func viewWillAppear(_ animated: Bool) {
+		if let indexPath = tableview.indexPathForSelectedRow {
+			tableview.deselectRow(at: indexPath, animated: true)
+		}
+	}
+
+	override func viewDidLayoutSubviews() {
+		self.navigationController?.isNavigationBarHidden = false
+	}
+
 	func readText() {
 		guard let file = Bundle.main.path(forResource: "ligands", ofType: "txt") else { return }
 		do {
@@ -52,7 +62,13 @@ extension ProteinListViewController: UISearchBarDelegate {
 }
 
 extension ProteinListViewController: UITableViewDelegate {
-
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let ligands = ligs else { return }
+		let st = UIStoryboard(name: "Protein", bundle: nil)
+		guard let vc = st.instantiateViewController(withIdentifier: "Protein") as? ProteinViewController else { return }
+		vc.ligandsName = ligands[indexPath.row]
+		self.navigationController?.pushViewController(vc, animated: true)
+	}
 }
 
 extension ProteinListViewController: UITableViewDataSource {

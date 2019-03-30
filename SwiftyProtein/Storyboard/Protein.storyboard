@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,12 +17,27 @@
                     <view key="view" contentMode="scaleToFill" id="f9W-I4-nG0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gg-4H-H8t">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </sceneKitView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4gg-4H-H8t" firstAttribute="bottom" secondItem="0ds-6V-ofF" secondAttribute="bottom" id="8NQ-tA-4ov"/>
+                            <constraint firstItem="4gg-4H-H8t" firstAttribute="leading" secondItem="0ds-6V-ofF" secondAttribute="leading" id="OPR-o3-BVs"/>
+                            <constraint firstItem="4gg-4H-H8t" firstAttribute="top" secondItem="0ds-6V-ofF" secondAttribute="top" id="eb6-l3-b63"/>
+                            <constraint firstItem="4gg-4H-H8t" firstAttribute="trailing" secondItem="0ds-6V-ofF" secondAttribute="trailing" id="q1l-DU-5zm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="0ds-6V-ofF"/>
                     </view>
+                    <connections>
+                        <outlet property="ligandsView" destination="4gg-4H-H8t" id="muQ-2K-JOC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVA-1l-gcs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>

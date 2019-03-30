@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D5209245224E3C8D00CDBFD2 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D5209244224E3C8D00CDBFD2 /* ligands.txt */; };
+		D5382F08224F531900910124 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5382F07224F531900910124 /* Colors.swift */; };
+		D5AEF952224F5F3E00B9F5F7 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AEF951224F5F3E00B9F5F7 /* Atom.swift */; };
 		D5D49A47224E256900166051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A46224E256900166051 /* AppDelegate.swift */; };
 		D5D49A4C224E256900166051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4A224E256900166051 /* Main.storyboard */; };
 		D5D49A4E224E256B00166051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4D224E256B00166051 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		D5209244224E3C8D00CDBFD2 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
+		D5382F07224F531900910124 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D5AEF951224F5F3E00B9F5F7 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
 		D5D49A43224E256900166051 /* SwiftyProtein.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyProtein.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D49A46224E256900166051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D49A4B224E256900166051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,6 +90,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D5382F03224F52C400910124 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				D5D49A4A224E256900166051 /* Main.storyboard */,
+				D5D49A7C224E272A00166051 /* Protein.storyboard */,
+				D5D49A7A224E271C00166051 /* ProteinList.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		D5382F04224F52DB00910124 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D5D49A78224E25BB00166051 /* ProteinViewController.swift */,
+				D5D49A76224E25AA00166051 /* ProteinListViewController.swift */,
+				D5D49A74224E258A00166051 /* LoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D5382F05224F52F000910124 /* IBDesign */ = {
+			isa = PBXGroup;
+			children = (
+				D5D49A80224E306C00166051 /* IBDesign.swift */,
+			);
+			path = IBDesign;
+			sourceTree = "<group>";
+		};
+		D5382F06224F52FB00910124 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D5382F07224F531900910124 /* Colors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D5AEF953224F60BF00B9F5F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5AEF951224F5F3E00B9F5F7 /* Atom.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D5D49A3A224E256900166051 = {
 			isa = PBXGroup;
 			children = (
@@ -109,18 +157,16 @@
 		D5D49A45224E256900166051 /* SwiftyProtein */ = {
 			isa = PBXGroup;
 			children = (
+				D5AEF953224F60BF00B9F5F7 /* Model */,
+				D5382F06224F52FB00910124 /* Extensions */,
+				D5382F05224F52F000910124 /* IBDesign */,
+				D5382F04224F52DB00910124 /* ViewController */,
+				D5382F03224F52C400910124 /* Storyboard */,
 				D5D49A46224E256900166051 /* AppDelegate.swift */,
 				D5209244224E3C8D00CDBFD2 /* ligands.txt */,
-				D5D49A7A224E271C00166051 /* ProteinList.storyboard */,
-				D5D49A7C224E272A00166051 /* Protein.storyboard */,
-				D5D49A4A224E256900166051 /* Main.storyboard */,
 				D5D49A4D224E256B00166051 /* Assets.xcassets */,
 				D5D49A4F224E256B00166051 /* LaunchScreen.storyboard */,
 				D5D49A52224E256B00166051 /* Info.plist */,
-				D5D49A74224E258A00166051 /* LoginViewController.swift */,
-				D5D49A76224E25AA00166051 /* ProteinListViewController.swift */,
-				D5D49A78224E25BB00166051 /* ProteinViewController.swift */,
-				D5D49A80224E306C00166051 /* IBDesign.swift */,
 			);
 			path = SwiftyProtein;
 			sourceTree = "<group>";
@@ -278,9 +324,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5D49A75224E258A00166051 /* LoginViewController.swift in Sources */,
+				D5382F08224F531900910124 /* Colors.swift in Sources */,
 				D5D49A81224E306C00166051 /* IBDesign.swift in Sources */,
 				D5D49A79224E25BB00166051 /* ProteinViewController.swift in Sources */,
 				D5D49A77224E25AA00166051 /* ProteinListViewController.swift in Sources */,
+				D5AEF952224F5F3E00B9F5F7 /* Atom.swift in Sources */,
 				D5D49A47224E256900166051 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

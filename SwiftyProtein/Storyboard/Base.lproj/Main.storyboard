@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AF8-md-uzT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,37 +22,60 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yph-Id-4rC" customClass="CustomBtn" customModule="SwiftyProtein" customModuleProvider="target">
-                                <rect key="frame" x="118" y="313.5" width="139" height="40"/>
+                                <rect key="frame" x="118" y="389" width="139" height="40"/>
                                 <color key="backgroundColor" red="0.4377511161" green="0.79147901350000005" blue="0.80036053480000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="MmE-5i-QCi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="Touch ID">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="12"/>
+                                        <real key="value" value="7"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="authWithTouchID:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B1I-yp-rMx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnF-Rc-bpc" customClass="CustomBtn" customModule="SwiftyProtein" customModuleProvider="target">
+                                <rect key="frame" x="129" y="311" width="117" height="41"/>
+                                <color key="backgroundColor" red="0.4377511161" green="0.79147901350000005" blue="0.80036053480000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="mjI-kG-8jU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WJc-7Y-zRJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="yph-Id-4rC" firstAttribute="centerX" secondItem="qs8-fT-dr7" secondAttribute="centerX" id="4Mu-9C-PmT"/>
+                            <constraint firstItem="CnF-Rc-bpc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="129" id="93t-8o-fKs"/>
+                            <constraint firstItem="CnF-Rc-bpc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="247" id="Nhd-Ls-UzD"/>
                             <constraint firstItem="qs8-fT-dr7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Val-U4-jbq"/>
+                            <constraint firstItem="CnF-Rc-bpc" firstAttribute="centerX" secondItem="yph-Id-4rC" secondAttribute="centerX" id="Z4e-QB-neR"/>
                             <constraint firstItem="yph-Id-4rC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="hLP-FK-HPm"/>
-                            <constraint firstItem="yph-Id-4rC" firstAttribute="centerY" secondItem="qs8-fT-dr7" secondAttribute="centerY" id="jft-7R-3zP"/>
                             <constraint firstItem="qs8-fT-dr7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="lSG-kV-r6f"/>
                             <constraint firstItem="qs8-fT-dr7" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="m1q-8i-IMn"/>
+                            <constraint firstItem="yph-Id-4rC" firstAttribute="top" secondItem="CnF-Rc-bpc" secondAttribute="bottom" constant="37" id="oTn-W9-ti8"/>
                             <constraint firstItem="qs8-fT-dr7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="v4f-Ra-xHc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JLu-Ic-Iia"/>
                     <connections>
                         <outlet property="loginBtn" destination="yph-Id-4rC" id="R8P-WZ-GQW"/>
                     </connections>
@@ -60,6 +83,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ted-U0-qkZ">
+            <objects>
+                <navigationController id="AF8-md-uzT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sP0-gv-jbL">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ebv-Zp-eBy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="agg-bp-dNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-833" y="42"/>
         </scene>
     </scenes>
     <resources>
