@@ -19,7 +19,7 @@ enum CPK: String {
 	case Br
 	case I
 
-	// group
+	// same group
 	case He
 	case Ne
 	case Ar
@@ -30,7 +30,7 @@ enum CPK: String {
 	case S
 	case B
 
-	// group
+	// same group
 	case Li
 	case Na
 	case K
@@ -38,7 +38,7 @@ enum CPK: String {
 	case Cs
 	case Fr
 
-	// group
+	// same group
 	case Be
 	case Mg
 	case Ca
@@ -55,9 +55,9 @@ enum CPK: String {
 struct Atom {
 	var id: Int
 	var type: CPK
-	var x: CGFloat
-	var y: CGFloat
-	var z: CGFloat
+	var x: Float
+	var y: Float
+	var z: Float
 	var connections: [Int]
 
 	init() {
@@ -67,5 +67,13 @@ struct Atom {
 		y = 0
 		z = 0
 		connections = []
+	}
+	init (id: Int, type: CPK, x: Float, y: Float, z: Float, connections: [Int] = []) {
+		self.id = id;
+		self.type = type;
+		self.x = x;
+		self.y = y;
+		self.z = z;
+		self.connections = connections;
 	}
 }

@@ -35,67 +35,100 @@ extension UIColor {
 		return nil
 	}
 
+	static func atomColor(of type: CPK) -> UIColor {
+		switch (type) {
+		case .H:
+			return UIColor.H
+		case .C:
+			return UIColor.C
+		case .N:
+			return UIColor.N
+		case .O:
+			return UIColor.O
+		case .F, .Cl:
+			return UIColor.F
+		case .Br:
+			return UIColor.Br
+		case .I:
+			return UIColor.I
+		case .He, .Ne, .Ar, .Xe, .Kr, .P, .S, .B:
+			return UIColor.He
+		case .Li, .Na, .K, .Rb, .Cs, .Fr:
+			return UIColor.Li
+		case .Be, .Mg, .Ca, .Sr, .Ba, .Ra:
+			return UIColor.Be
+		case .Ti:
+			return UIColor.Ti
+		case .Fe:
+			return UIColor.Fe
+		case .other:
+			return UIColor.Other
+		case .none:
+			return UIColor.white
+		}
+	}
+
 	static var H: UIColor {
 		return UIColor.white
 	}
 
 	static var C: UIColor {
-		return UIColor.black
+		return UIColor.gray
 	}
 
 	static var N: UIColor {
-		return UIColor(red: 34, green: 50, blue: 255, alpha: 1)
+		return UIColor(red: 34/255, green: 50/255, blue: 255/255, alpha: 1)
 	}
 
 	static var O: UIColor {
-		return UIColor(red: 255, green: 33, blue: 1, alpha: 1)
+		return UIColor(red: 255/255, green: 33/255, blue: 1/255, alpha: 1)
 	}
 
-	static var FnCI: UIColor {
-		return UIColor(red: 34, green: 240, blue: 32, alpha: 1)
+	static var F: UIColor {
+		return UIColor(red: 34/255, green: 240/255, blue: 32/255, alpha: 1)
 	}
 
 	static var Br: UIColor {
-		return UIColor(red: 153, green: 34, blue: 0, alpha: 1)
+		return UIColor(red: 153/255, green: 34/255, blue: 0/255, alpha: 1)
 	}
 
 	static var I: UIColor {
-		return UIColor(red: 102, green: 0, blue: 187, alpha: 1)
+		return UIColor(red: 102/255, green: 0/255, blue: 187/255, alpha: 1)
 	}
 
 	static var He: UIColor {
-		return UIColor(red: 5, green: 255, blue: 255, alpha: 1)
+		return UIColor(red: 5/255, green: 255/255, blue: 255/255, alpha: 1)
 	}
 
 	static var P: UIColor {
-		return UIColor(red: 255, green: 153, blue: 0, alpha: 1)
+		return UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 1)
 	}
 
 	static var S: UIColor {
-		return UIColor(red: 255, green: 229, blue: 34, alpha: 1)
+		return UIColor(red: 255/255, green: 229/255, blue: 34/255, alpha: 1)
 	}
 
 	static var B: UIColor {
-		return UIColor(red: 255, green: 170, blue: 119, alpha: 1)
+		return UIColor(red: 255/255, green: 170/255, blue: 119/255, alpha: 1)
 	}
 
 	static var Li: UIColor {
-		return UIColor(red: 119, green: 2, blue: 255, alpha: 1)
+		return UIColor(red: 119/255, green: 2/255, blue: 255/255, alpha: 1)
 	}
 
 	static var Be: UIColor {
-		return UIColor(red: 0, green: 119, blue: 1, alpha: 1)
+		return UIColor(red: 0/255, green: 119/255, blue: 1/255, alpha: 1)
 	}
 
 	static var Ti: UIColor {
-		return UIColor(red: 153, green: 153, blue: 153, alpha: 1)
+		return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
 	}
 
 	static var Fe: UIColor {
-		return UIColor(red: 220, green: 119, blue: 2, alpha: 1)
+		return UIColor(red: 220/255, green: 119/255, blue: 2/255, alpha: 1)
 	}
 
 	static var Other: UIColor {
-		return UIColor(red: 221, green: 119, blue: 255, alpha: 1)
+		return UIColor(red: 221/255, green: 119/255, blue: 255/255, alpha: 1)
 	}
 }

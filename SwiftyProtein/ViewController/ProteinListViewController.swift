@@ -72,13 +72,14 @@ extension ProteinListViewController: UITableViewDelegate {
 }
 
 extension ProteinListViewController: UITableViewDataSource {
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 1
+	}
+
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		guard let ligands = ligs else { return 0 }
 		return ligands.count
-	}
-
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
