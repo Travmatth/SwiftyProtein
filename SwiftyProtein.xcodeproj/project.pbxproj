@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB95FA80227A086C00B1BB3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D5209244224E3C8D00CDBFD2 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
 		D5382F07224F531900910124 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D5AEF951224F5F3E00B9F5F7 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		D5D49A3A224E256900166051 = {
 			isa = PBXGroup;
 			children = (
+				BB95FA80227A086C00B1BB3D /* README.md */,
 				D5D49A45224E256900166051 /* SwiftyProtein */,
 				D5D49A5A224E256B00166051 /* SwiftyProteinTests */,
 				D5D49A65224E256B00166051 /* SwiftyProteinUITests */,
