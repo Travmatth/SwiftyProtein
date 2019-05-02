@@ -9,11 +9,24 @@
 import UIKit
 import SceneKit
 
+func - (lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
+    return SCNVector3(rhs.x - lhs.x, rhs.y - lhs.y, rhs.z - lhs.z)
+}
+
 class ProteinViewController: UIViewController {
 
 	@IBOutlet weak var ligandsView: SCNView!
 	
+    /*
+    ** Name of ligand selected by user for viewing in ProteinListViewController
+    */
+    
 	var ligandsName: String?
+    
+    /*
+    ** Atom array containing information on all atoms contained in ligan
+    */
+    
 	var atoms: [Atom] = []
 
     /*
@@ -61,11 +74,11 @@ class ProteinViewController: UIViewController {
 				}
 			})
 			//self.atoms.forEach { print($0) }
-			self.drawLigand(atoms: self.atoms)
+            self.drawLigand(scene: scene, atoms: self.atoms)
             print(self.atoms[0].node!.position, self.atoms[1].node!.position)
-            let bondNode = self.bond(startPoint: self.atoms[0].node!.position, endPoint: self.atoms[1].node!.position, color: UIColor.black)
+            let bondNode = self.bond(startPoint: self.atoms[0].node!.position, endPoint: self.atoms[1].node!.position)
             //let bondNode = SCNNode(geometry: bond)
-            bondNode.position = SCNVector3Make(15, 15, 10)
+//            bondNode.position = SCNVector3Make(15, 15, 10)
             scene.rootNode.addChildNode(bondNode)
 		}
 	}
@@ -108,9 +121,7 @@ class ProteinViewController: UIViewController {
     ** SCNSPhere and SCNVector for SCCNode, and adding SCNNode to scene
     */
     
-	func drawLigand(atoms: [Atom]) {
-		let scene = SCNScene()
-
+    func drawLigand(scene: SCNScene, atoms: [Atom]) {
 //        atoms.forEach { atom in
         for i in 0..<self.atoms.count {
 			let ball = SCNSphere(radius: 0.2)
@@ -130,42 +141,14 @@ class ProteinViewController: UIViewController {
     ** ref: https://stackoverflow.com/questions/35002232/draw-scenekit-object-between-two-points?rq=1
     */
     
-	func bond(startPoint: SCNVector3, endPoint: SCNVector3, color : UIColor) -> SCNNode {
-        /*
-		let vertices: [SCNVector3] = [startPoint, endPoint]
-		let data = NSData(bytes: vertices, length: MemoryLayout<SCNVector3>.size * vertices.count) as Data
-
-		let vertexSource = SCNGeometrySource(data: data,
-											 semantic: .vertex,
-											 vectorCount: vertices.count,
-											 usesFloatComponents: true,
-											 componentsPerVector: 3,
-											 bytesPerComponent: MemoryLayout<Float>.size,
-											 dataOffset: 0,
-											 dataStride: MemoryLayout<SCNVector3>.stride)
-
-
-		let indices: [Int32] = [ 0, 1]
-
-		let indexData = NSData(bytes: indices, length: MemoryLayout<Int32>.size * indices.count) as Data
-
-		let element = SCNGeometryElement(data: indexData,
-										 primitiveType: .line,
-										 primitiveCount: indices.count/2,
-										 bytesPerIndex: MemoryLayout<Int32>.size)
-
-		let line = SCNGeometry(sources: [vertexSource], elements: [element])
-
-		line.firstMaterial?.lightingModel = SCNMaterial.LightingModel.constant
-		line.firstMaterial?.diffuse.contents = color
-        */
-        let indices: [Int32] = [0, 1]
-        
+	func bond(startPoint: SCNVector3, endPoint: SCNVector3) -> SCNNode {
         let source = SCNGeometrySource(vertices: [startPoint, endPoint])
-        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
-
-		let lineNode = SCNNode(geometry: SCNGeometry(sources: [source], elements: [element]))
-		return lineNode
+        let element = SCNGeometryElement(indices: [0, 1] as [Int32], primitiveType: .line)
+        let line = SCNGeometry(sources: [source], elements: [element])
+        
+        line.firstMaterial?.diffuse.contents = UIColor.black
+        glLineWidth(10) // width: GLFloat
+        return SCNNode(geometry: line)
 	}
 
 	@objc
