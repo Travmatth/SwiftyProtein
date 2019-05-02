@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SceneKit
 
 enum CPK: String {
 	case H
@@ -59,7 +60,8 @@ struct Atom {
 	var y: Float
 	var z: Float
 	var connections: [Int]
-
+    var node: SCNNode?
+    
 	init() {
 		id = 0
 		type = .none
