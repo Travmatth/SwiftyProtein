@@ -76,10 +76,7 @@ class ProteinViewController: UIViewController {
 			//self.atoms.forEach { print($0) }
             self.drawLigand(scene: scene, atoms: self.atoms)
             print(self.atoms[0].node!.position, self.atoms[1].node!.position)
-            let bondNode = self.bond(startPoint: self.atoms[0].node!.position, endPoint: self.atoms[1].node!.position)
-            //let bondNode = SCNNode(geometry: bond)
-//            bondNode.position = SCNVector3Make(15, 15, 10)
-            scene.rootNode.addChildNode(bondNode)
+            scene.rootNode.addChildNode(Bond(start: self.atoms[0].node!, end: self.atoms[1].node!))
 		}
 	}
 
@@ -89,6 +86,7 @@ class ProteinViewController: UIViewController {
     */
     
 	func getModelInfo(of name: String, success: @escaping (String) -> Void) {
+        var string: String!
 		guard let initial = name.first else { return }
 		let url = URL(string: "http://ligand-expo.rcsb.org/reports/\(initial)/\(name)/\(name)_model.pdb")!
 		let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, error in
@@ -97,19 +95,17 @@ class ProteinViewController: UIViewController {
                 if error != nil {
                     print(error!)
                     return
-                } else {
-                    print("url call successful")
                 }
 				guard let localURL = localURL else {
                     print("localURL guard failed")
                     return
                 }
-				guard let string = try? String(contentsOf: localURL) else {
-                    print("string guard failed")
-                    return
+                do {
+                    string = try! String(contentsOf: localURL)
+                    success(string)
+                } catch {
+                    print("localURL error: \(error)")
                 }
-                //print(localURL, string)
-				success(string)
 			}
 		}
 		task.resume()
@@ -134,21 +130,6 @@ class ProteinViewController: UIViewController {
 		ligandsView.scene = scene
 		ligandsView.autoenablesDefaultLighting = true
 		ligandsView.allowsCameraControl = true
-	}
-
-    /*
-    ** Connection between Atoms is called a bond
-    ** ref: https://stackoverflow.com/questions/35002232/draw-scenekit-object-between-two-points?rq=1
-    */
-    
-	func bond(startPoint: SCNVector3, endPoint: SCNVector3) -> SCNNode {
-        let source = SCNGeometrySource(vertices: [startPoint, endPoint])
-        let element = SCNGeometryElement(indices: [0, 1] as [Int32], primitiveType: .line)
-        let line = SCNGeometry(sources: [source], elements: [element])
-        
-        line.firstMaterial?.diffuse.contents = UIColor.black
-        glLineWidth(10) // width: GLFloat
-        return SCNNode(geometry: line)
 	}
 
 	@objc
