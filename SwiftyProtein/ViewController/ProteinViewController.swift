@@ -9,41 +9,59 @@
 import UIKit
 import SceneKit
 
-func - (lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
-    return SCNVector3(rhs.x - lhs.x, rhs.y - lhs.y, rhs.z - lhs.z)
-}
-
+/*
+ * Display selected Ligand with CPK Coloring using Scenekit
+ * Note: ATOM/CONECT contains information directly captured by the structure determination methods.
+ * As such, most entries do not fully capture the shape and may not contain every atom/bond
+ * https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/missing-coordinates-and-biological-assemblies
+ */
 class ProteinViewController: UIViewController {
 
 	@IBOutlet weak var ligandsView: SCNView!
 	
     /*
-    ** Name of ligand selected by user for viewing in ProteinListViewController
-    */
+     * Name of ligand selected by user for viewing in ProteinListViewController
+     */
     
 	var ligandsName: String?
     
     /*
-    ** Atom array containing information on all atoms contained in ligan
-    */
+     * Dictionary mapping atom id -> Atom SCNNode
+     * Represents all given Atoms in given ligand
+     */
     
-	var atoms: [Atom] = []
+    var atoms: Dictionary<Int, Atom> = [:]
 
     /*
-    ** When view loads from memory, register share action on right bar button and start protein info request
-    */
+     * Dictionary mapping Connection(to, from) struct -> Bond SCNNode
+     * Represents all valid Bonds between indidividual Atoms in given ligand
+     */
+    
+    var bonds: Dictionary<Connection, Bond> = [:]
+    
+    /*
+     * When view loads from memory, register share action on right bar button
+     * and start protein info request
+     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAction))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(shareAction)
+        )
 		initInfo()
     }
 
     /*
-    ** Request protein information with callback
-    ** callback adds inits Atom objects, appends each to controller member array, registers
-    ** Atoms connections to Atom member array. Draws Atoms by calling drawLigand
-    */
+     * Initiate protein info http request with callback
+     * Callback iterates through lines of response, adds Atom entries to atoms dictionary
+     * with id as key. Iterates through connection entries and, if Bond valid and not already present,
+     * adds Bond to bonds dictionary, where key is Connection struct with id's of Atom connecting to
+     * and from. Iterates through atom and bond dictionaries to add each object to the scene then sets
+     * appropriate ligandsView options, registers scene to ligandsView.
+     */
     
 	func initInfo() {
         let scene = SCNScene()
@@ -51,60 +69,46 @@ class ProteinViewController: UIViewController {
 		getModelInfo(of: name) { [weak self] content in
 			guard let `self` = self else { return }
 			let lines = content.split(separator: "\n")
-			var i = 0;
-			self.atoms = []
 			lines.forEach({ element in
-				let infos = element.split(separator: " ")
-				//print(infos)
-				if (infos[0] == "ATOM") {
-					let atom: Atom = Atom(id: Int(infos[1]) ?? 0,
-										  type: CPK(rawValue: String(infos[11])) ?? .none,
-										  x: Float(infos[6]) ?? 0,
-										  y: Float(infos[7]) ?? 0,
-										  z: Float(infos[8]) ?? 0)
-					self.atoms.append(atom)
-				} else if (infos[0] == "CONECT") {
-                    print(infos)
-					if (self.atoms.count <= i || infos.count < 2) {
-						i += 1
-						return
-					}
-					self.atoms[i].connections = infos[2...].map {Int($0) ?? 0}
-					i += 1
-				}
+                let info = element.components(separatedBy: " ").filter { $0 != "" }
+                if (info[0] == "ATOM") {
+                    self.atoms[Int(info[1]) ?? 0] = Atom(info: info)
+                } else if (info[0] == "CONECT") {
+                    guard let start = Int(info[1]), self.atoms[start] != nil else { return }
+                    info[2...]
+                        .map { Int($0) ?? 0 }
+                        .filter { $0 != 0 && self.atoms[$0] != nil }
+                        .filter { self.bonds[Connection(from: $0, to: start)] == nil }
+                        .forEach { end -> Void in
+                            let bond = Bond(start: self.atoms[start]!, end: self.atoms[end]!)
+                            self.bonds[Connection(from: start, to: end)] = bond
+                        }
+                }
 			})
-			//self.atoms.forEach { print($0) }
-            self.drawLigand(scene: scene, atoms: self.atoms)
-            print(self.atoms[0].node!.position, self.atoms[1].node!.position)
-            scene.rootNode.addChildNode(Bond(start: self.atoms[0].node!, end: self.atoms[1].node!))
-		}
+            for (_, atom) in self.atoms { scene.rootNode.addChildNode(atom) }
+            for (_, bond) in self.bonds { scene.rootNode.addChildNode(bond) }
+            self.ligandsView.scene = scene
+            self.ligandsView.autoenablesDefaultLighting = true
+            self.ligandsView.allowsCameraControl = true
+        }
 	}
 
     /*
-    ** Request information regarding selected ligand from central database, passes response to
-    ** callback for processing and drawing
-    */
+     * Request information regarding selected ligand from central database
+     * pass response to callback (inside initinfo) for processing and drawing
+     */
     
 	func getModelInfo(of name: String, success: @escaping (String) -> Void) {
-        var string: String!
-		guard let initial = name.first else { return }
+        guard let initial = name.first else { return }
 		let url = URL(string: "http://ligand-expo.rcsb.org/reports/\(initial)/\(name)/\(name)_model.pdb")!
-		let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, error in
+		let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, err in
 			DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                if error != nil {
-                    print(error!)
-                    return
-                }
-				guard let localURL = localURL else {
-                    print("localURL guard failed")
-                    return
-                }
-                do {
-                    string = try! String(contentsOf: localURL)
-                    success(string)
-                } catch {
-                    print("localURL error: \(error)")
+                if err != nil { print(err!) }
+                else if localURL == nil { return }
+                else {
+                    do { success(try String(contentsOf: localURL!)) }
+                    catch { print("ProteinViewController: \(error)") }
                 }
 			}
 		}
@@ -113,34 +117,13 @@ class ProteinViewController: UIViewController {
 	}
 
     /*
-    ** Iterates through Atoms array and draws individual atoms using Scenekit, by initializing
-    ** SCNSPhere and SCNVector for SCCNode, and adding SCNNode to scene
-    */
+     * Share selected ligand
+     */
     
-    func drawLigand(scene: SCNScene, atoms: [Atom]) {
-//        atoms.forEach { atom in
-        for i in 0..<self.atoms.count {
-			let ball = SCNSphere(radius: 0.2)
-			ball.firstMaterial?.diffuse.contents = UIColor.atomColor(of: atoms[i].type)
-			let ballNode = SCNNode(geometry: ball)
-			ballNode.position = SCNVector3(x: atoms[i].x, y: atoms[i].y, z: atoms[i].z)
-            self.atoms[i].node = ballNode
-            if i == 0 || i == 1 { scene.rootNode.addChildNode(ballNode) }
-		}
-		ligandsView.scene = scene
-		ligandsView.autoenablesDefaultLighting = true
-		ligandsView.allowsCameraControl = true
-	}
-
 	@objc
 	func shareAction(_ sender: UIBarButtonItem) {
 		let items = ["This app is my favorite"]
 		let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
 		present(ac, animated: true)
 	}
-    
-    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        
-        glLineWidth(10)
-    }
 }
