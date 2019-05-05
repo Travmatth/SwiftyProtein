@@ -15,11 +15,14 @@ import SceneKit
  */
 
 class Atom: SCNNode {
+    var type: String!
+    
     init(info: [String], radius: CGFloat = 0.2) {
         super.init()
+        type = info[11]
         let ball = SCNSphere(radius: radius)
-        let type = CPK(rawValue: String(info[11])) ?? .none
-        ball.firstMaterial?.diffuse.contents = UIColor.atomColor(of: type)
+        let color = CPK(rawValue: String(type)) ?? .none
+        ball.firstMaterial?.diffuse.contents = UIColor.atomColor(of: color)
         self.geometry = ball
         self.position = SCNVector3(
             x: Float(info[6]) ?? 0,

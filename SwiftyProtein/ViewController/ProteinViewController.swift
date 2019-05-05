@@ -54,7 +54,16 @@ class ProteinViewController: UIViewController {
             target: self,
             action: #selector(shareAction)
         )
-		initInfo()
+        let scene = SCNScene()
+        self.ligandsView.scene = scene
+        self.ligandsView.autoenablesDefaultLighting = true
+        self.ligandsView.allowsCameraControl = true
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.addTarget(self, action: #selector(sceneTapped))
+        ligandsView.gestureRecognizers = [tapRecognizer]
+        initInfo(withScene: scene)
     }
 
     /*
@@ -66,8 +75,7 @@ class ProteinViewController: UIViewController {
      * appropriate ligandsView options, registers scene to ligandsView.
      */
     
-	func initInfo() {
-        let scene = SCNScene()
+    func initInfo(withScene scene: SCNScene) {
 		guard let name = ligandsName else { return }
 		getModelInfo(of: name) { [weak self] content in
 			guard let `self` = self else { return }
@@ -90,9 +98,6 @@ class ProteinViewController: UIViewController {
 			})
             for (_, atom) in self.atoms { scene.rootNode.addChildNode(atom) }
             for (_, bond) in self.bonds { scene.rootNode.addChildNode(bond) }
-            self.ligandsView.scene = scene
-            self.ligandsView.autoenablesDefaultLighting = true
-            self.ligandsView.allowsCameraControl = true
         }
 	}
 
@@ -132,8 +137,21 @@ class ProteinViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
  
-    func dismissCurrent(_: UIAlertAction) {
-       
+    /*
+     * Detect when an Atom in the SceneView is tapped, and display a modal with it's information
+     */
+    
+    @objc
+    func sceneTapped(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: ligandsView)
+        let hitResults = ligandsView.hitTest(location, options: nil)
+        if hitResults.count > 0 {
+            let result = hitResults[0] as SCNHitTestResult
+            let atom = result.node as! Atom
+            let alert = UIAlertController(title: "Atom Selected:", message: atom.type, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     /*
