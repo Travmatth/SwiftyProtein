@@ -9,12 +9,15 @@
 import UIKit
 import SceneKit
 
+let message = "Request could not be completed at this time. Please try again later"
+
 /*
  * Display selected Ligand with CPK Coloring using Scenekit
  * Note: ATOM/CONECT contains information directly captured by the structure determination methods.
  * As such, most entries do not fully capture the shape and may not contain every atom/bond
  * https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/missing-coordinates-and-biological-assemblies
  */
+
 class ProteinViewController: UIViewController {
 
 	@IBOutlet weak var ligandsView: SCNView!
@@ -104,18 +107,35 @@ class ProteinViewController: UIViewController {
 		let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, err in
 			DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                if err != nil { print(err!) }
+                if err != nil { self.presentErrorAlert(error: err) }
                 else if localURL == nil { return }
                 else {
                     do { success(try String(contentsOf: localURL!)) }
-                    catch { print("ProteinViewController: \(error)") }
+                    catch { self.presentErrorAlert(error: error) }
                 }
 			}
 		}
 		task.resume()
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 	}
-
+    
+    /*
+     * If error occurs during the HTTP request, alert user and dismiss ProteinViewController
+     */
+    
+    func presentErrorAlert(error: Any?) {
+        print(error!)
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        })
+        self.present(alert, animated: true, completion: nil)
+    }
+ 
+    func dismissCurrent(_: UIAlertAction) {
+       
+    }
+    
     /*
      * Share selected ligand
      */

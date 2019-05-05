@@ -41,7 +41,6 @@ class LoginViewController: UIViewController {
         let reason = "Identify yourself!"
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
             [unowned self] success, authenticationError in
-            
             DispatchQueue.main.async {
                 if !success {
                     let ac = UIAlertController(title: "Authentication failed", message: "Sorry!", preferredStyle: .alert)
@@ -51,12 +50,12 @@ class LoginViewController: UIViewController {
                 }
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
-                self.login(nil)
+                self.login()
             }
         }
 	}
 
-	@IBAction func login(_ sender: UIButton?) {
+	@IBAction func login(_ sender: UIButton? = nil) {
         let st = UIStoryboard(name: "ProteinList", bundle: nil)
         guard let vc = st.instantiateViewController(withIdentifier: "ProteinList") as? ProteinListViewController else { return }
         vc.title = "Proteins"
