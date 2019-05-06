@@ -54,6 +54,14 @@ class ProteinViewController: UIViewController {
             target: self,
             action: #selector(shareAction)
         )
+        initInfo(withScene: initScene())
+    }
+    
+    /*
+     * Initialize scene and set gesture recognizers
+     */
+    
+    func initScene() -> SCNScene {
         let scene = SCNScene()
         self.ligandsView.scene = scene
         self.ligandsView.autoenablesDefaultLighting = true
@@ -63,7 +71,7 @@ class ProteinViewController: UIViewController {
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
         ligandsView.gestureRecognizers = [tapRecognizer]
-        initInfo(withScene: scene)
+        return scene
     }
 
     /*
@@ -160,8 +168,9 @@ class ProteinViewController: UIViewController {
     
 	@objc
 	func shareAction(_ sender: UIBarButtonItem) {
-		let items = ["This app is my favorite"]
+		let items = [ligandsView.snapshot()]
 		let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        ac.popoverPresentationController?.sourceView = self.view
 		present(ac, animated: true)
 	}
 }

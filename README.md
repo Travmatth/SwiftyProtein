@@ -28,3 +28,4 @@
   - [ ] Other modelisation available
   - [ ] Custom message when sharing your screenshot
 
+Icon made by [Freepik](https://www.freepik.com/) Freepik under the Creative Commons BY 3.0 License
