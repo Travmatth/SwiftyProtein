@@ -155,10 +155,11 @@ class ProteinViewController: UIViewController {
         let hitResults = ligandsView.hitTest(location, options: nil)
         if hitResults.count > 0 {
             let result = hitResults[0] as SCNHitTestResult
-            let atom = result.node as! Atom
-            let alert = UIAlertController(title: "Atom Selected:", message: atom.type, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            if let atom = result.node as? Atom {
+                let alert = UIAlertController(title: "Atom Selected:", message: atom.type, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
