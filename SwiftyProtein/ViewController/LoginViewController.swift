@@ -12,10 +12,20 @@ import LocalAuthentication
 class LoginViewController: UIViewController {
 
 	@IBOutlet weak var loginBtn: UIButton!
-
+    @IBOutlet weak var defaultLoginBtn: CustomBtn!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-		initUI()
+        var error: NSError? = nil
+        if LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            defaultLoginBtn.isHidden = true
+            loginBtn.isHidden = false
+            
+        } else {
+            loginBtn.isHidden = true
+            defaultLoginBtn.isHidden = false
+        }
+        if error != nil { print(error!) }
     }
 
 	override func viewDidLayoutSubviews() {
@@ -26,45 +36,29 @@ class LoginViewController: UIViewController {
 		return .lightContent
 	}
 
-	func initUI() {
-		let context = LAContext()
-		if !context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-			loginBtn.isHidden = true
-		}
-	}
-
 	@IBAction func authWithTouchID(_ sender: UIButton) {
-		authenticateUser()
+        let context = LAContext()
+        let reason = "Identify yourself!"
+        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+            [unowned self] success, authenticationError in
+            DispatchQueue.main.async {
+                if !success {
+                    let ac = UIAlertController(title: "Authentication failed", message: "Sorry!", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(ac, animated: true)
+                    return
+                }
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                self.login()
+            }
+        }
 	}
 
-	@IBAction func login(_ sender: UIButton) {
-		self.toProteinList()
-	}
-
-	func toProteinList() {
-		let st = UIStoryboard(name: "ProteinList", bundle: nil)
-		guard let vc = st.instantiateViewController(withIdentifier: "ProteinList") as? ProteinListViewController else { return }
-		vc.title = "Proteins"
-		self.navigationController?.pushViewController(vc, animated: true)
-	}
-    
-	func authenticateUser() {
-		let context = LAContext()
-		let reason = "Identify yourself!"
-		context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
-			[unowned self] success, authenticationError in
-
-			DispatchQueue.main.async {
-				if !success {
-					let ac = UIAlertController(title: "Authentication failed", message: "Sorry!", preferredStyle: .alert)
-					ac.addAction(UIAlertAction(title: "OK", style: .default))
-					self.present(ac, animated: true)
-					return
-				}
-				let generator = UIImpactFeedbackGenerator(style: .medium)
-				generator.impactOccurred()
-				self.toProteinList()
-			}
-		}
+	@IBAction func login(_ sender: UIButton? = nil) {
+        let st = UIStoryboard(name: "ProteinList", bundle: nil)
+        guard let vc = st.instantiateViewController(withIdentifier: "ProteinList") as? ProteinListViewController else { return }
+        vc.title = "Proteins"
+        self.navigationController?.pushViewController(vc, animated: true)
 	}
 }

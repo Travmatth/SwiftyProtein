@@ -3,13 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9584487F227BCB73008B2797 /* Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584487E227BCB73008B2797 /* Bond.swift */; };
+		95A65E9D227CC2F200515DE2 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65E9C227CC2F200515DE2 /* Atom.swift */; };
+		95A65E9F227CCCC700515DE2 /* CPK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65E9E227CCCC700515DE2 /* CPK.swift */; };
+		95A65EA1227CCCE900515DE2 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65EA0227CCCE900515DE2 /* Connection.swift */; };
 		D5209245224E3C8D00CDBFD2 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D5209244224E3C8D00CDBFD2 /* ligands.txt */; };
 		D5382F08224F531900910124 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5382F07224F531900910124 /* Colors.swift */; };
-		D5AEF952224F5F3E00B9F5F7 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AEF951224F5F3E00B9F5F7 /* Atom.swift */; };
 		D5D49A47224E256900166051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D49A46224E256900166051 /* AppDelegate.swift */; };
 		D5D49A4C224E256900166051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4A224E256900166051 /* Main.storyboard */; };
 		D5D49A4E224E256B00166051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D49A4D224E256B00166051 /* Assets.xcassets */; };
@@ -42,9 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9584487E227BCB73008B2797 /* Bond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bond.swift; sourceTree = "<group>"; };
+		95A65E9C227CC2F200515DE2 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
+		95A65E9E227CCCC700515DE2 /* CPK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPK.swift; sourceTree = "<group>"; };
+		95A65EA0227CCCE900515DE2 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		BB95FA80227A086C00B1BB3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D5209244224E3C8D00CDBFD2 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
 		D5382F07224F531900910124 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		D5AEF951224F5F3E00B9F5F7 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
 		D5D49A43224E256900166051 /* SwiftyProtein.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyProtein.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D49A46224E256900166051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D49A4B224E256900166051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,6 +113,8 @@
 				D5D49A78224E25BB00166051 /* ProteinViewController.swift */,
 				D5D49A76224E25AA00166051 /* ProteinListViewController.swift */,
 				D5D49A74224E258A00166051 /* LoginViewController.swift */,
+				9584487E227BCB73008B2797 /* Bond.swift */,
+				95A65E9C227CC2F200515DE2 /* Atom.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -129,7 +138,8 @@
 		D5AEF953224F60BF00B9F5F7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D5AEF951224F5F3E00B9F5F7 /* Atom.swift */,
+				95A65E9E227CCCC700515DE2 /* CPK.swift */,
+				95A65EA0227CCCE900515DE2 /* Connection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +147,7 @@
 		D5D49A3A224E256900166051 = {
 			isa = PBXGroup;
 			children = (
+				BB95FA80227A086C00B1BB3D /* README.md */,
 				D5D49A45224E256900166051 /* SwiftyProtein */,
 				D5D49A5A224E256B00166051 /* SwiftyProteinTests */,
 				D5D49A65224E256B00166051 /* SwiftyProteinUITests */,
@@ -257,19 +268,22 @@
 				TargetAttributes = {
 					D5D49A42224E256900166051 = {
 						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
 					};
 					D5D49A56224E256B00166051 = {
 						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
 						TestTargetID = D5D49A42224E256900166051;
 					};
 					D5D49A61224E256B00166051 = {
 						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
 						TestTargetID = D5D49A42224E256900166051;
 					};
 				};
 			};
 			buildConfigurationList = D5D49A3E224E256900166051 /* Build configuration list for PBXProject "SwiftyProtein" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -323,12 +337,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9584487F227BCB73008B2797 /* Bond.swift in Sources */,
+				95A65E9D227CC2F200515DE2 /* Atom.swift in Sources */,
 				D5D49A75224E258A00166051 /* LoginViewController.swift in Sources */,
 				D5382F08224F531900910124 /* Colors.swift in Sources */,
 				D5D49A81224E306C00166051 /* IBDesign.swift in Sources */,
+				95A65E9F227CCCC700515DE2 /* CPK.swift in Sources */,
 				D5D49A79224E25BB00166051 /* ProteinViewController.swift in Sources */,
+				95A65EA1227CCCE900515DE2 /* Connection.swift in Sources */,
 				D5D49A77224E25AA00166051 /* ProteinListViewController.swift in Sources */,
-				D5AEF952224F5F3E00B9F5F7 /* Atom.swift in Sources */,
 				D5D49A47224E256900166051 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,10 +525,7 @@
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProtein/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProtein;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -527,10 +541,7 @@
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProtein/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProtein;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -546,11 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProteinTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProteinTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -567,11 +574,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProteinTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProteinTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -587,11 +590,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProteinUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProteinUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -607,11 +606,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L8MX5JJJM6;
 				INFOPLIST_FILE = SwiftyProteinUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = idl.yatty.SwiftyProteinUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

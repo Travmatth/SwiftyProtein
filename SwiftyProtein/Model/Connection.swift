@@ -1,0 +1,34 @@
+//
+//  Connection.swift
+//  SwiftyProtein
+//
+//  Created by Travis Matthews on 5/3/19.
+//  Copyright © 2019 Shinya Yamada. All rights reserved.
+//
+
+import Foundation
+
+/*
+ * Connections are used to identify the bonds between atoms, contain
+ * the id's of the Atoms being mapped from/to. Conforming to the
+ * Hashable/Equatable protocols allows structs to be used as Keys in
+ * Dictionaries
+ */
+
+struct Connection: Hashable, Equatable {
+    let from: Int
+    let to: Int
+    
+    init(from: Int, to: Int) {
+        self.from = from
+        self.to = to
+    }
+    
+    var hashValue: Int {
+        return "\(from)\(to)".hashValue
+    }
+    
+    static func ==(lhs: Connection, rhs: Connection) -> Bool {
+        return lhs.from == rhs.from && lhs.to == rhs.to ? true : false
+    }
+}
