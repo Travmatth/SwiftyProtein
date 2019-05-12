@@ -38,8 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 		let st = UIStoryboard(name: "Main", bundle: nil)
 		guard let vc = st.instantiateViewController(withIdentifier: "Login") as? LoginViewController else { return }
+		let navigationConroller = UINavigationController(rootViewController: vc)
 		self.window = UIWindow(frame: UIScreen.main.bounds)
-		self.window?.rootViewController = vc
+		self.window?.rootViewController = navigationConroller
 		self.window?.makeKeyAndVisible()
 	}
 
