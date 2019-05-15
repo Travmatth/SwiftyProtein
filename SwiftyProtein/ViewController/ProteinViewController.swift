@@ -21,6 +21,18 @@ let message = "Request could not be completed at this time. Please try again lat
 class ProteinViewController: UIViewController {
 
 	@IBOutlet weak var ligandsView: SCNView!
+    
+    /*
+    ** cameraNode controls the display perspective of the scene
+    */
+    
+    let cameraNode = SCNNode()
+
+    /*
+    ** Average point of Atom array used to set initial perspective of scene camera
+    */
+    
+    var middle: Coord?
 	
     /*
      * Name of ligand selected by user for viewing in ProteinListViewController
@@ -69,8 +81,10 @@ class ProteinViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTapsRequired = 1
+        //let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(scenePanned))
+        let pinchRecognizer = UIPanGestureRecognizer(target: self, action: #selector(scenePinched))
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
-        ligandsView.gestureRecognizers = [tapRecognizer]
+        ligandsView.gestureRecognizers = [tapRecognizer/*, panRecognizer*/, pinchRecognizer]
         return scene
     }
 
@@ -91,7 +105,7 @@ class ProteinViewController: UIViewController {
 			lines.forEach({ element in
                 let info = element.components(separatedBy: " ").filter { $0 != "" }
                 if (info[0] == "ATOM") {
-                    self.atoms[Int(info[1]) ?? 0] = Atom(info: info)
+                    self.atoms[Int(info[1]) ?? 0] = Atom(info: info, update: self.updateMiddle)
                 } else if (info[0] == "CONECT") {
                     guard let start = Int(info[1]), self.atoms[start] != nil else { return }
                     info[2...]
@@ -106,6 +120,13 @@ class ProteinViewController: UIViewController {
 			})
             for (_, atom) in self.atoms { scene.rootNode.addChildNode(atom) }
             for (_, bond) in self.bonds { scene.rootNode.addChildNode(bond) }
+            self.cameraNode.camera = SCNCamera()
+            self.cameraNode.position = SCNVector3(
+                x: self.middle!.x,
+                y: self.middle!.y,
+                z: self.middle!.z + 25
+            )
+            scene.rootNode.addChildNode(self.cameraNode)
         }
 	}
 
@@ -144,6 +165,19 @@ class ProteinViewController: UIViewController {
         })
         self.present(alert, animated: true, completion: nil)
     }
+    
+    /*
+     * Detect when an Atom in the SceneView is pinched, and zoom camera appropriately
+     */
+    
+    @objc
+    func scenePinched(recognizer: UIPinchGestureRecognizer) {
+            print("here")
+            let scale = recognizer.velocity
+            if recognizer.state == .changed {
+                self.cameraNode.camera?.fieldOfView = 25 / scale
+            }
+    }
  
     /*
      * Detect when an Atom in the SceneView is tapped, and display a modal with it's information
@@ -174,4 +208,8 @@ class ProteinViewController: UIViewController {
         ac.popoverPresentationController?.sourceView = self.view
 		present(ac, animated: true)
 	}
+    
+    func updateMiddle(coord: Coord) {
+        self.middle = self.middle == nil ? coord : (self.middle! + coord) / 2
+    }
 }
