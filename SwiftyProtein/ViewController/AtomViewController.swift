@@ -14,7 +14,7 @@ import SceneKit
  * Subclasses SCNNode, represents atom as an SCNSphere
  */
 
-class AtomController: SCNNode {
+class AtomViewController: SCNNode {
     var type: String!
     
     init(info: [String], radius: CGFloat = 0.2) {

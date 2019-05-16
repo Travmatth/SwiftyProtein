@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9584487F227BCB73008B2797 /* Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584487E227BCB73008B2797 /* Bond.swift */; };
-		95A65E9D227CC2F200515DE2 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65E9C227CC2F200515DE2 /* Atom.swift */; };
+		9584487F227BCB73008B2797 /* BondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584487E227BCB73008B2797 /* BondViewController.swift */; };
+		95A65E9D227CC2F200515DE2 /* AtomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65E9C227CC2F200515DE2 /* AtomViewController.swift */; };
 		95A65E9F227CCCC700515DE2 /* CPK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65E9E227CCCC700515DE2 /* CPK.swift */; };
 		95A65EA1227CCCE900515DE2 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A65EA0227CCCE900515DE2 /* Connection.swift */; };
 		D5209245224E3C8D00CDBFD2 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D5209244224E3C8D00CDBFD2 /* ligands.txt */; };
@@ -45,8 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9584487E227BCB73008B2797 /* Bond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bond.swift; sourceTree = "<group>"; };
-		95A65E9C227CC2F200515DE2 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
+		9584487E227BCB73008B2797 /* BondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BondViewController.swift; sourceTree = "<group>"; };
+		95A65E9C227CC2F200515DE2 /* AtomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomViewController.swift; sourceTree = "<group>"; };
 		95A65E9E227CCCC700515DE2 /* CPK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPK.swift; sourceTree = "<group>"; };
 		95A65EA0227CCCE900515DE2 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		BB95FA80227A086C00B1BB3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -113,8 +113,8 @@
 				D5D49A78224E25BB00166051 /* ProteinViewController.swift */,
 				D5D49A76224E25AA00166051 /* ProteinListViewController.swift */,
 				D5D49A74224E258A00166051 /* LoginViewController.swift */,
-				9584487E227BCB73008B2797 /* Bond.swift */,
-				95A65E9C227CC2F200515DE2 /* Atom.swift */,
+				9584487E227BCB73008B2797 /* BondViewController.swift */,
+				95A65E9C227CC2F200515DE2 /* AtomViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -337,8 +337,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9584487F227BCB73008B2797 /* Bond.swift in Sources */,
-				95A65E9D227CC2F200515DE2 /* Atom.swift in Sources */,
+				9584487F227BCB73008B2797 /* BondViewController.swift in Sources */,
+				95A65E9D227CC2F200515DE2 /* AtomViewController.swift in Sources */,
 				D5D49A75224E258A00166051 /* LoginViewController.swift in Sources */,
 				D5382F08224F531900910124 /* Colors.swift in Sources */,
 				D5D49A81224E306C00166051 /* IBDesign.swift in Sources */,
@@ -511,8 +511,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

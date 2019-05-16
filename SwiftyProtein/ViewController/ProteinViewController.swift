@@ -45,14 +45,14 @@ class ProteinViewController: UIViewController {
      * Represents all given Atoms in given ligand
      */
     
-    var atoms: Dictionary<Int, Atom> = [:]
+    var atoms: Dictionary<Int, AtomViewController> = [:]
 
     /*
      * Dictionary mapping Connection(to, from) struct -> Bond SCNNode
      * Represents all valid Bonds between indidividual Atoms in given ligand
      */
     
-    var bonds: Dictionary<Connection, Bond> = [:]
+    var bonds: Dictionary<Connection, BondViewController> = [:]
     
     /*
      * When view loads from memory, register share action on right bar button
@@ -80,11 +80,8 @@ class ProteinViewController: UIViewController {
         self.ligandsView.allowsCameraControl = true
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
-        tapRecognizer.numberOfTapsRequired = 1
-        //let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(scenePanned))
-        let pinchRecognizer = UIPanGestureRecognizer(target: self, action: #selector(scenePinched))
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
-        ligandsView.gestureRecognizers = [tapRecognizer/*, panRecognizer*/, pinchRecognizer]
+        ligandsView.addGestureRecognizer(tapRecognizer)
         return scene
     }
 
@@ -105,7 +102,7 @@ class ProteinViewController: UIViewController {
 			lines.forEach({ element in
                 let info = element.components(separatedBy: " ").filter { $0 != "" }
                 if (info[0] == "ATOM") {
-                    self.atoms[Int(info[1]) ?? 0] = Atom(info: info, update: self.updateMiddle)
+                    self.atoms[Int(info[1]) ?? 0] = AtomViewController(info: info)
                 } else if (info[0] == "CONECT") {
                     guard let start = Int(info[1]), self.atoms[start] != nil else { return }
                     info[2...]
@@ -113,20 +110,13 @@ class ProteinViewController: UIViewController {
                         .filter { $0 != 0 && self.atoms[$0] != nil }
                         .filter { self.bonds[Connection(from: $0, to: start)] == nil }
                         .forEach { end -> Void in
-                            let bond = Bond(start: self.atoms[start]!, end: self.atoms[end]!)
+                            let bond = BondViewController(start: self.atoms[start]!, end: self.atoms[end]!)
                             self.bonds[Connection(from: start, to: end)] = bond
                         }
                 }
 			})
             for (_, atom) in self.atoms { scene.rootNode.addChildNode(atom) }
             for (_, bond) in self.bonds { scene.rootNode.addChildNode(bond) }
-            self.cameraNode.camera = SCNCamera()
-            self.cameraNode.position = SCNVector3(
-                x: self.middle!.x,
-                y: self.middle!.y,
-                z: self.middle!.z + 25
-            )
-            scene.rootNode.addChildNode(self.cameraNode)
         }
 	}
 
@@ -167,19 +157,6 @@ class ProteinViewController: UIViewController {
     }
     
     /*
-     * Detect when an Atom in the SceneView is pinched, and zoom camera appropriately
-     */
-    
-    @objc
-    func scenePinched(recognizer: UIPinchGestureRecognizer) {
-            print("here")
-            let scale = recognizer.velocity
-            if recognizer.state == .changed {
-                self.cameraNode.camera?.fieldOfView = 25 / scale
-            }
-    }
- 
-    /*
      * Detect when an Atom in the SceneView is tapped, and display a modal with it's information
      */
     
@@ -189,7 +166,7 @@ class ProteinViewController: UIViewController {
         let hitResults = ligandsView.hitTest(location, options: nil)
         if hitResults.count > 0 {
             let result = hitResults[0] as SCNHitTestResult
-            if let atom = result.node as? Atom {
+            if let atom = result.node as? AtomViewController {
                 let alert = UIAlertController(title: "Atom Selected:", message: atom.type, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -208,8 +185,4 @@ class ProteinViewController: UIViewController {
         ac.popoverPresentationController?.sourceView = self.view
 		present(ac, animated: true)
 	}
-    
-    func updateMiddle(coord: Coord) {
-        self.middle = self.middle == nil ? coord : (self.middle! + coord) / 2
-    }
 }
