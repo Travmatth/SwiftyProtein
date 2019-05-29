@@ -8,6 +8,26 @@
 
 import Foundation
 
+struct Coord {
+    var x: Float
+    var y: Float
+    var z: Float
+
+    init(x: Float, y: Float, z: Float) {
+        self.x = x
+        self.y = y
+        self.z = z
+    }
+    
+    static func +(lhs: Coord, rhs: Coord) -> Coord {
+        return Coord(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
+    }
+    
+    static func /(lhs: Coord, rhs: Float) -> Coord {
+        return (Coord(x: lhs.x / rhs, y: lhs.y / rhs, z: lhs.z / rhs))
+    }
+}
+
 /*
  * Connections are used to identify the bonds between atoms, contain
  * the id's of the Atoms being mapped from/to. Conforming to the
