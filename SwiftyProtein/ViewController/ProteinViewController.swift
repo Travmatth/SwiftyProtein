@@ -21,6 +21,18 @@ let message = "Request could not be completed at this time. Please try again lat
 class ProteinViewController: UIViewController {
 
 	@IBOutlet weak var ligandsView: SCNView!
+    
+    /*
+    ** cameraNode controls the display perspective of the scene
+    */
+    
+    let cameraNode = SCNNode()
+
+    /*
+    ** Average point of Atom array used to set initial perspective of scene camera
+    */
+    
+    var middle: Coord?
 	
     /*
      * Name of ligand selected by user for viewing in ProteinListViewController
@@ -33,14 +45,14 @@ class ProteinViewController: UIViewController {
      * Represents all given Atoms in given ligand
      */
     
-    var atoms: Dictionary<Int, Atom> = [:]
+    var atoms: Dictionary<Int, AtomViewController> = [:]
 
     /*
      * Dictionary mapping Connection(to, from) struct -> Bond SCNNode
      * Represents all valid Bonds between indidividual Atoms in given ligand
      */
     
-    var bonds: Dictionary<Connection, Bond> = [:]
+    var bonds: Dictionary<Connection, BondViewController> = [:]
     
     /*
      * When view loads from memory, register share action on right bar button
@@ -68,9 +80,8 @@ class ProteinViewController: UIViewController {
         self.ligandsView.allowsCameraControl = true
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
-        tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
-        ligandsView.gestureRecognizers = [tapRecognizer]
+        ligandsView.addGestureRecognizer(tapRecognizer)
         return scene
     }
 
@@ -91,7 +102,7 @@ class ProteinViewController: UIViewController {
 			lines.forEach({ element in
                 let info = element.components(separatedBy: " ").filter { $0 != "" }
                 if (info[0] == "ATOM") {
-                    self.atoms[Int(info[1]) ?? 0] = Atom(info: info)
+                    self.atoms[Int(info[1]) ?? 0] = AtomViewController(info: info)
                 } else if (info[0] == "CONECT") {
                     guard let start = Int(info[1]), self.atoms[start] != nil else { return }
                     info[2...]
@@ -99,7 +110,7 @@ class ProteinViewController: UIViewController {
                         .filter { $0 != 0 && self.atoms[$0] != nil }
                         .filter { self.bonds[Connection(from: $0, to: start)] == nil }
                         .forEach { end -> Void in
-                            let bond = Bond(start: self.atoms[start]!, end: self.atoms[end]!)
+                            let bond = BondViewController(start: self.atoms[start]!, end: self.atoms[end]!)
                             self.bonds[Connection(from: start, to: end)] = bond
                         }
                 }
@@ -144,7 +155,7 @@ class ProteinViewController: UIViewController {
         })
         self.present(alert, animated: true, completion: nil)
     }
- 
+    
     /*
      * Detect when an Atom in the SceneView is tapped, and display a modal with it's information
      */
@@ -155,7 +166,7 @@ class ProteinViewController: UIViewController {
         let hitResults = ligandsView.hitTest(location, options: nil)
         if hitResults.count > 0 {
             let result = hitResults[0] as SCNHitTestResult
-            if let atom = result.node as? Atom {
+            if let atom = result.node as? AtomViewController {
                 let alert = UIAlertController(title: "Atom Selected:", message: atom.type, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)

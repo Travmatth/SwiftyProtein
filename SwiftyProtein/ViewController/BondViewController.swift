@@ -14,8 +14,8 @@ import SceneKit
  * represents bond as an SCNGeometry element of type .line
  */
 
-class Bond: SCNNode {
-    init(start: Atom, end: Atom, width: GLfloat = 10) {
+class BondViewController: SCNNode {
+    init(start: AtomViewController, end: AtomViewController, width: GLfloat = 10) {
         super.init()
         let source = SCNGeometrySource(vertices: [start.position, end.position])
         let element = SCNGeometryElement(indices: [0, 1] as [Int32], primitiveType: .line)
